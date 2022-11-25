@@ -7,23 +7,19 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapMutations, mapState, mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'HelloWorld',
   computed: {
-    counter() {
-      // TODO: Read the counter from store
-      return this.$store.state.counter
-    },
-    times2() {
-      // TODO: Read the times2 from store
-      return this.$store.getters.times2
-    }
+    ...mapState(['counter']),
+    ...mapGetters(['times2'])
   },
   methods: {
+    ...mapMutations(['setCounter']),
     increment() {
       // TODO: Call the setCounter mutation from store
-      this.$store.commit('setCounter', this.counter +1)
+      this.setCounter(this.counter +1)
     }
   }
 })
