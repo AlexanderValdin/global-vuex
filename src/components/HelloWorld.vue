@@ -5,18 +5,13 @@
   <button @click="increment">Increment</button>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 import { useStore } from 'vuex'; // Para trabajar con Composition API debemos importar este hook
 
-export default defineComponent({
-  name: 'HelloWorld',
-  setup() {
-    const store = useStore()  // lo mismo que this.$store en Option API
-    const counter = computed(() => store.state.counter)
-    const times2 = computed(() => store.getters.times2)
-    const increment = () => store.commit('setCounter', counter.value + 1)
-    return { increment, counter, times2 }
-  }
-})
+  const store = useStore()  // lo mismo que this.$store en Option API
+  const counter = computed(() => store.state.counter)
+  const times2 = computed(() => store.getters.times2)
+  const increment = () => store.commit('setCounter', counter.value + 1)
+   
 </script>
