@@ -6,21 +6,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapMutations, mapState, mapGetters } from 'vuex';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex'; // Para trabajar con Composition API debemos importar este hook
 
 export default defineComponent({
   name: 'HelloWorld',
-  computed: {
-    ...mapState(['counter']),
-    ...mapGetters(['times2'])
-  },
-  methods: {
-    ...mapMutations(['setCounter']),
-    increment() {
-      // TODO: Call the setCounter mutation from store
-      this.setCounter(this.counter +1)
-    }
+  setup() {
+    const store = useStore()  // lo mismo que this.$store en Option API
+    const counter = computed(() => store.state.counter)
+    const times2 = computed(() => store.getters.times2)
+    const increment = () => store.commit('setCounter', counter.value + 1)
+    return { increment, counter, times2 }
   }
 })
 </script>
